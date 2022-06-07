@@ -1,6 +1,21 @@
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,900.css")/*tpa=https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,900*/;
 @import url("all.css")/*tpa=http://win64exe.github.io/about/css/all.css*/;
 
+html, body, h1 {
+  padding: 0;
+  margin: 0;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+#wrapper {
+   text-align: center;
+}
+
+.sub {
+  color: rgb(100,220,220);
+  letter-spacing: 1em;
+}
+
 	body, input, select, textarea {
 		color: white;
 		font-family: 'Source Sans Pro', sans-serif;
