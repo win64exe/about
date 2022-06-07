@@ -1,5 +1,5 @@
-@import url("../../fonts.googleapis.com/css-family=Source+Sans+Pro-300,900.css")/*tpa=http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,900*/;
-@import url("font-awesome.min.css")/*tpa=http://melson.eurodir.ru/css/font-awesome.min.css*/;
+@import url("http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,900.css")/*tpa=http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,900*/;
+@import url("all.css")/*tpa=http://win64exe.github.io/about/css/all.css*/;
 
 	body, input, select, textarea {
 		color: white;
