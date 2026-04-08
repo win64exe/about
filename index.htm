@@ -19,48 +19,47 @@
             background-color: #000;
             color: #fff;
             font-family: 'Courier New', Courier, monospace;
-            overflow-x: hidden;
+            overflow: hidden; /* Чтобы не было прокрутки */
         }
 
-        #wrapper {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
+        /* Видео на весь экран */
         video#player {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -1;
+            position: fixed; /* Фиксируем видео */
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -2;
+            transform: translateX(-50%) translateY(-50%); /* Центрируем */
+            background-size: cover;
         }
 
         #overlay {
-            position: absolute;
+            position: fixed; /* Фиксируем затемнение */
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.5);
             z-index: -1;
         }
 
         #main {
-            text-align: center;
+            position: relative;
             z-index: 1;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
 
         /* --- АНИМАЦИЯ И РАЗМЕР ЗАГОЛОВКА --- */
         h1 {
-            /* УВЕЛИЧЕННЫЙ РАЗМЕР */
             font-size: 7rem; 
-            
             margin: 10px 0;
             text-transform: uppercase;
             letter-spacing: 5px;
@@ -69,23 +68,9 @@
         }
 
         @keyframes xenoglow {
-            0% {
-                color: #fff;
-                text-shadow: 0 0 5px #fff, 0 0 10px #fff;
-            }
-            50% {
-                color: #39ff14;
-                text-shadow: 
-                    0 0 5px #fff, 
-                    0 0 10px #fff, 
-                    0 0 20px #39ff14, 
-                    0 0 40px #39ff14, 
-                    0 0 60px #39ff14;
-            }
-            100% {
-                color: #fff;
-                text-shadow: 0 0 5px #fff, 0 0 10px #fff;
-            }
+            0% { color: #fff; text-shadow: 0 0 5px #fff, 0 0 10px #fff; }
+            50% { color: #39ff14; text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #39ff14, 0 0 40px #39ff14, 0 0 60px #39ff14; }
+            100% { color: #fff; text-shadow: 0 0 5px #fff, 0 0 10px #fff; }
         }
 
         #doc_time {
@@ -116,6 +101,27 @@
             text-shadow: 0 0 15px #39ff14;
         }
 
+        /* Кнопка звука */
+        #sound-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #fff;
+            color: #fff;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
+            border-radius: 5px;
+            transition: background 0.3s;
+            z-index: 10;
+        }
+        #sound-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Бегущая строка */
         .marquee-container {
             width: 100%;
             overflow: hidden;
@@ -135,56 +141,59 @@
             100% { transform: translateX(-100%); }
         }
 
-        /* Адаптивность для мобильных (уменьшаем заголовок на телефонах) */
         @media (max-width: 600px) {
-            h1 { 
-                font-size: 3rem; /* Меньше на мобильных */
-            }
+            h1 { font-size: 3rem; }
             nav ul li a { font-size: 1.5rem; }
         }
     </style>
 </head>
 
 <body>
-    <div id="wrapper">
-        <video autoplay loop muted playsinline id="player">
-            <source src="vid/6.mp4" type="video/mp4">
-        </video>     
-        <div id="overlay"></div>
-        
-        <div id="main">                
-            <header id="header">
-                <span id="doc_time">00:00:00</span>					
-                <h1>XENOMORPH</h1>
-                <p>&nbsp;&bull;&nbsp;xeno&nbsp;&bull;&nbsp;</p>
+    <!-- Видео без muted -->
+    <video autoplay loop id="player">
+        <source src="vid/6.mp4" type="video/mp4">
+    </video>     
+    
+    <div id="overlay"></div>
+    
+    <!-- Кнопка для звука -->
+    <button id="sound-btn" onclick="toggleSound()">
+        <i class="fa fa-volume-off" id="sound-icon"></i> Включить звук
+    </button>
+
+    <div id="main">                
+        <header id="header">
+            <span id="doc_time">00:00:00</span>					
+            <h1>XENOMORPH</h1>
+            <p>&nbsp;&bull;&nbsp;xeno&nbsp;&bull;&nbsp;</p>
+            
+            <nav>
+                <ul>    
+                    <li><a href="https://t.me/xe9om0rph" target="_blank" title="Telegram"><i class="fa-solid fa-gamepad"></i></a></li>
+                    <li><a href="https://vk.com/ggforp" target="_blank" title="VK"><i class="fa fa-vk"></i></a></li>    
+                    <li><a href="http://steamcommunity.com/id/xenomorphx/" target="_blank" title="Steam"><i class="fa fa-steam-square"></i></a></li>
+                    <li><a href="https://www.instagram.com/xe9omorph/" target="_blank" title="Instagram"><i class="fa fa-instagram"></i></a></li>    
+                </ul>
                 
-                <nav>
-                    <ul>    
-                        <li><a href="https://t.me/xe9om0rph" target="_blank" title="Telegram"><i class="fa-solid fa-gamepad"></i></a></li>
-                        <li><a href="https://vk.com/ggforp" target="_blank" title="VK"><i class="fa fa-vk"></i></a></li>    
-                        <li><a href="http://steamcommunity.com/id/xenomorphx/" target="_blank" title="Steam"><i class="fa fa-steam-square"></i></a></li>
-                        <li><a href="https://www.instagram.com/xe9omorph/" target="_blank" title="Instagram"><i class="fa fa-instagram"></i></a></li>    
-                    </ul>
-                    
-                    <div class="marquee-container">
-                        <div class="marquee-content">
-                            &nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;
-                        </div>
+                <div class="marquee-container">
+                    <div class="marquee-content">
+                        &nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;
                     </div>
-                            
-                    <p>⊹MMHVH KING⊹</p>            
-                    
-                    <div class="marquee-container">
-                        <div class="marquee-content">
-                            &nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;
-                        </div>
-                    </div>	
-                </nav>
-            </header>                
-        </div>
+                </div>
+                        
+                <p>⊹MMHVH KING⊹</p>            
+                
+                <div class="marquee-container">
+                    <div class="marquee-content">
+                        &nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;&nbsp;&bull;
+                    </div>
+                </div>	
+            </nav>
+        </header>                
     </div>
 
     <script type="text/javascript">
+        // Скрипт часов
         function clock() {
             const d = new Date();
             const hours = String(d.getHours()).padStart(2, '0');
@@ -195,6 +204,34 @@
             setTimeout(clock, 1000);
         }
         clock();
+
+        // Скрипт для управления звуком
+        var video = document.getElementById("player");
+        var btn = document.getElementById("sound-btn");
+        var icon = document.getElementById("sound-icon");
+        var isMuted = true; // Изначально браузер может заблокировать звук, поэтому считаем, что он выключен
+
+        // Пытаемся включить звук при загрузке, но браузер может запретить
+        // Поэтому используем кнопку
+        
+        function toggleSound() {
+            if (isMuted) {
+                video.muted = false;
+                icon.className = "fa fa-volume-up";
+                btn.innerHTML = "<i class='fa fa-volume-up' id='sound-icon'></i> Выключить звук";
+                isMuted = false;
+            } else {
+                video.muted = true;
+                icon.className = "fa fa-volume-off";
+                btn.innerHTML = "<i class='fa fa-volume-off' id='sound-icon'></i> Включить звук";
+                isMuted = true;
+            }
+        }
+        
+        // Автоматическая попытка включить звук (может не сработать без клика)
+        video.play().catch(error => {
+            console.log("Автозапуск заблокирован, требуется клик");
+        });
     </script>
 </body>
 </html>
