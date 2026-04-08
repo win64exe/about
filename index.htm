@@ -7,14 +7,11 @@
     <title>XENOMORPH</title>
     <link rel="icon" type="image/x-icon" href="1.ico">
     
-    <!-- Подключение иконок -->
     <script src="https://kit.fontawesome.com/5fc8d7455c.js" crossorigin="anonymous"></script>
     
-    <!-- Ваши внешние стили -->
     <link rel="stylesheet" href="css/style.css">    
     <link rel="stylesheet" href="css/glitch.css">
 
-    <!-- ОБНОВЛЕННЫЕ СТИЛИ -->
     <style>
         body {
             margin: 0;
@@ -59,36 +56,35 @@
             z-index: 1;
         }
 
-        /* --- АНИМАЦИЯ ЗАГОЛОВКА --- */
+        /* --- АНИМАЦИЯ И РАЗМЕР ЗАГОЛОВКА --- */
         h1 {
-            font-size: 4rem;
+            /* УВЕЛИЧЕННЫЙ РАЗМЕР */
+            font-size: 7rem; 
+            
             margin: 10px 0;
             text-transform: uppercase;
             letter-spacing: 5px;
-            
-            /* Настраиваем анимацию */
             animation: xenoglow 3s ease-in-out infinite; 
-            color: #fff; /* Начальный цвет */
+            color: #fff;
         }
 
-        /* Сценарий анимации */
         @keyframes xenoglow {
             0% {
                 color: #fff;
-                text-shadow: 0 0 5px #fff, 0 0 10px #fff; /* Тускло */
+                text-shadow: 0 0 5px #fff, 0 0 10px #fff;
             }
             50% {
-                color: #39ff14; /* Ядовито-зеленый цвет текста */
+                color: #39ff14;
                 text-shadow: 
                     0 0 5px #fff, 
                     0 0 10px #fff, 
                     0 0 20px #39ff14, 
                     0 0 40px #39ff14, 
-                    0 0 60px #39ff14; /* Яркое свечение */
+                    0 0 60px #39ff14;
             }
             100% {
                 color: #fff;
-                text-shadow: 0 0 5px #fff, 0 0 10px #fff; /* Снова тускло */
+                text-shadow: 0 0 5px #fff, 0 0 10px #fff;
             }
         }
 
@@ -115,12 +111,11 @@
         }
 
         nav ul li a:hover {
-            color: #39ff14; /* При наведении тоже зеленый */
+            color: #39ff14;
             transform: scale(1.2);
             text-shadow: 0 0 15px #39ff14;
         }
 
-        /* Бегущая строка */
         .marquee-container {
             width: 100%;
             overflow: hidden;
@@ -140,8 +135,11 @@
             100% { transform: translateX(-100%); }
         }
 
+        /* Адаптивность для мобильных (уменьшаем заголовок на телефонах) */
         @media (max-width: 600px) {
-            h1 { font-size: 2.5rem; }
+            h1 { 
+                font-size: 3rem; /* Меньше на мобильных */
+            }
             nav ul li a { font-size: 1.5rem; }
         }
     </style>
